@@ -1,6 +1,14 @@
 python-dotenv==1.0.1
+<<<<<<< Updated upstream
 flask==3.0.3
 flask_cors==5.0.0
 oracledb==2.4.1
 requests==2.32.3
 pytest==8.3.3
+=======
+flask_cors==5.0.0
+oracledb==2.5.1
+requests==2.32.3
+pytest==8.3.4
+flask
+>>>>>>> Stashed changes
