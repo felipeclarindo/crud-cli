@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 from ..app.modules.validations import (
-=======
-from ..app.validations.validations import (
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
     validate_column,
     validate_table,
     validate_value,

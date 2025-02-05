@@ -2,23 +2,14 @@ from os import system, name
 from time import sleep
 import json
 import requests
-<<<<<<< HEAD
 from .modules.utils import confirm_exit, confirm_requisition
 from .modules.validations import (
-=======
-from .utils.utils import confirm_exit
-from .validations.validations import (
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
     validate_column,
     validate_value,
     validate_table,
     validate_id,
 )
-<<<<<<< HEAD
 
-=======
-from .modules.generate_json import generate_json_file
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
 
 class App:
     """
@@ -26,11 +17,7 @@ class App:
     """
 
     def __init__(self) -> None:
-<<<<<<< HEAD
         self.url = "http://127.0.0.1:5000"
-=======
-        self.url = "http://127.0.0.1:3000"
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
         self.table = None
         self.valid = True
         self.ids = []
@@ -63,11 +50,7 @@ class App:
         print("[4] Delete")
         print("[5] Table (switch)")
         print("[6] Exit")
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
     def input_column(self, option: str) -> str:
         """
         Solicita ao usuário o nome da coluna.
@@ -138,46 +121,6 @@ class App:
                 input("APERTE ENTER PARA CONTINUAR")
         return int(id)
 
-<<<<<<< HEAD
-=======
-    def save_dados(self, dados: list[list], option: str) -> None:
-        """
-        Salva os dados em um arquivo JSON.
-        """
-        try:
-            dados = [dict(zip(["id", "nome", "marca", "ano"], dado)) for dado in dados]
-            option = option.lower()
-            self.menu_option(option)
-            confirm_valid = False
-            while not confirm_valid:
-                self.menu_option(option)
-                confirm = input("Deseja salvar os dados em um arquivo JSON? [Sim/Não]\n")
-                confirm_valid = confirm_exit(confirm)
-                if not confirm_valid:
-                    input("APERTE ENTER PARA CONTINUAR")
-            if confirm.lower() in ["sim", "s", "ss"]:
-                self.menu_option(option)
-                filename= input("Informe o nome do arquivo: ").strip()
-                self.menu_option(option)
-                print("Gerando arquivo JSON...")
-                sleep(1)
-                self.menu_option(option)
-                print(generate_json_file(dados, filename=f"{filename}.json"))
-                input("APERTE ENTER PARA CONTINUAR")
-        except Exception as e:
-            print(f"Erro ao salvar dados: {e}")
-            input("APERTE ENTER PARA CONTINUAR")
-
-    def view_dado(self, dados: dict, option: str) -> None:
-        """
-        Exibe um dado específico.
-        """
-        self.menu_option(option)
-        for key, value in dados.items():
-            print(f"{key}: {value}")
-        input("APERTE ENTER PARA CONTINUAR")
-
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
     def view_dados(self, dados: list[list], option: str, id: bool = False):
         dados_list = ["id", "nome", "marca", "ano"]
         if id:
@@ -205,10 +148,6 @@ class App:
                 input("APERTE ENTER PARA CONTINUAR")
         else:
             self.valid = False
-<<<<<<< HEAD
-=======
-            self.menu_option(option)
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
             print("Nenhum dado encontrado!")
             input("APERTE ENTER PARA CONTINUAR")
 
@@ -265,20 +204,12 @@ class App:
                             input("APERTE ENTER PARA CONTINUAR")
                     if confirm in ["sim", "s"]:
                         dados["table"] = self.table
-<<<<<<< HEAD
                         new_dict = {
-=======
-                        data = {
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
                             dado: valor
                             for dado, valor in dados.items()
                             if dado != "message"
                         }
-<<<<<<< HEAD
                         response = requests.post(f"{self.url}/post", json=new_dict)
-=======
-                        response = requests.post(f"{self.url}/api/table", json=data)
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
                         self.menu_option(option)
                         if response.status_code == 201:
                             try:
@@ -290,18 +221,11 @@ class App:
                             input("APERTE ENTER PARA CONTINUAR")
                             if self.voltar_menu(option):
                                 break
-<<<<<<< HEAD
                             else:
                                 self.menu_option(option)
                                 print(f"Reiniciando método: {option}...")
                                 sleep(1)
                                 continue
-=======
-                            self.menu_option(option)
-                            print(f"Reiniciando método: {option}...")
-                            sleep(1)
-                            continue
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
                         else:
                             try:
                                 error_message = response.json().get(
@@ -316,20 +240,12 @@ class App:
 
                         if self.voltar_menu(option):
                             break
-<<<<<<< HEAD
                         else:
                             dados = {}
                             self.menu_option(option)
                             print(f"Reiniciando método: {option}...")
                             sleep(1)
                             continue
-=======
-                        dados = {}
-                        self.menu_option(option)
-                        print(f"Reiniciando método: {option}...")
-                        sleep(1)
-                        continue
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
                 else:
                     print("Dado já adicionado")
                     input("APERTE ENTER PARA CONTINUAR")
@@ -349,7 +265,6 @@ class App:
                 print("Tabela não definida. Use a opção '5' para definir uma tabela.")
                 input("APERTE ENTER PARA CONTINUAR")
                 return
-<<<<<<< HEAD
             tentativas = 0
             max_tentativas = 3
             while tentativas < max_tentativas:
@@ -383,58 +298,17 @@ class App:
                             print(f"Reiniciando método: {option}...")
                             sleep(1)
                             continue
-=======
-
-            tentativas = 0
-            max_tentativas = 3
-
-            while tentativas < max_tentativas:
-                data = {"table": self.table}
-                response = requests.get(f"{self.url}/api/table", json=data)
-
-                if response.status_code == 200:
-                    try:
-                        data = response.json()  
-                    except ValueError:
-                        print("Erro ao decodificar a resposta JSON.")
-                        input("APERTE ENTER PARA CONTINUAR")
-                        tentativas += 1
-                        continue
-                    dados = data.get("message")
-                    dados = json.loads(dados)
-                    if search:
-                        self.view_dados(dados, option=method)
-                    else:
-                        self.view_dados(dados, option)
-                        self.save_dados(dados, option)
-                        if self.voltar_menu(option):
-                            break
-                        self.menu_option(option)
-                        print(f"Reiniciando método: {option}...")
-                        sleep(1)
-                        continue
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
                 else:
                     print("Falha ao obter dados após várias tentativas.")
                     input("APERTE ENTER PARA CONTINUAR")
                     if self.voltar_menu(option):
                         break
-<<<<<<< HEAD
                     else:
                         self.menu_option(option)
                         print(f"Reiniciando método: {option}...")
                         sleep(1)
                         continue
                 tentativas += 1
-=======
-                    self.menu_option(option)
-                    print(f"Reiniciando método: {option}...")
-                    sleep(1)
-                    continue
-
-                tentativas += 1
-
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
         except requests.RequestException as e:
             print(f"Erro na requisição: {e}")
             input("APERTE ENTER PARA CONTINUAR")
@@ -442,64 +316,6 @@ class App:
             print(f"Erro: {e}")
             input("APERTE ENTER PARA CONTINUAR")
 
-<<<<<<< HEAD
-=======
-    def get_with_id(self, id: int, option: str = "get") -> None:
-        """
-        Método para obter dados (GET).
-        """
-        try:
-            if self.table is None:
-                print("Tabela não definida. Use a opção '5' para definir uma tabela.")
-                input("APERTE ENTER PARA CONTINUAR")
-                return
-
-            tentativas = 0
-            max_tentativas = 3
-
-            while tentativas < max_tentativas:
-                data = {"table": self.table}
-                response = requests.get(f"{self.url}/api/table/{id}", json=data)
-
-                if response.status_code == 200:
-                    try:
-                        dados = response.json()  # Decodifica a resposta JSON
-                    except ValueError:
-                        print("Erro ao decodificar a resposta JSON.")
-                        input("APERTE ENTER PARA CONTINUAR")
-                        tentativas += 1
-                        continue
-
-                    dados = json.loads(dados.get("content"))
-                    self.view_dado(dados, option)
-                    self.save_dados(dados, option)
-                    if self.voltar_menu(option):
-                        break
-                    self.menu_option(option)
-                    print(f"Reiniciando método: {option}...")
-                    sleep(1)
-                    continue
-                else:
-                    print("Falha ao obter dados após várias tentativas.")
-                    input("APERTE ENTER PARA CONTINUAR")
-                    if self.voltar_menu(option):
-                        break
-                    self.menu_option(option)
-                    print(f"Reiniciando método: {option}...")
-                    sleep(1)
-                    continue
-
-                tentativas += 1
-
-        except requests.RequestException as e:
-            print(f"Erro na requisição: {e}")
-            input("APERTE ENTER PARA CONTINUAR")
-        except Exception as e:
-            print(f"Erro: {e}")
-            input("APERTE ENTER PARA CONTINUAR")
-
-
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
     def patch(self) -> None:
         """
         Método para atualizar dados (PATCH).
@@ -512,7 +328,6 @@ class App:
                     option_id = f"{option} id: {id}"
                     column = self.input_column(option_id)
                     new_value = self.input_value(option_id, new=True)
-<<<<<<< HEAD
                     dados = {
                         "table": self.table,
                         "id": id,
@@ -520,51 +335,28 @@ class App:
                         "value": new_value,
                     }
                     response = requests.patch(f"{self.url}/patch", json=dados)
-=======
-                    data = {
-                        "table": self.table,
-                        "column": column,
-                        "value": new_value,
-                    }
-                    response = requests.patch(f"{self.url}/api/table/{id}", json=data)
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
                     if response.status_code == 200:
                         self.menu_option(option)
                         print("Dados atualizados com sucesso!")
                         input("APERTE ENTER PARA CONTINUAR")
                         if self.voltar_menu(option):
                             break
-<<<<<<< HEAD
                         else:
                             self.menu_option(option)
                             print(f"Reiniciando método: {option}...")
                             sleep(1)
                             continue
-=======
-                        self.menu_option(option)
-                        print(f"Reiniciando método: {option}...")
-                        sleep(1)
-                        continue
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
                     else:
                         print(f"Erro ao atualizar dados: {response.status_code}")
                         input("APERTE ENTER PARA CONTINUAR")
                 else:
                     if self.voltar_menu(option):
                         break
-<<<<<<< HEAD
                     else:
                         self.menu_option(option)
                         print(f"Reiniciando método: {option}")
                         sleep(1)
                         continue
-=======
-                    
-                    self.menu_option(option)
-                    print(f"Reiniciando método: {option}")
-                    sleep(1)
-                    continue
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
 
         except requests.RequestException as e:
             print(f"Erro na requisição: {e}")
@@ -581,15 +373,9 @@ class App:
             while True:
                 option = "delete"
                 id = self.input_id(option)
-<<<<<<< HEAD
                 if self.valid and id:
                     dados = {"table": self.table, "id": id}
                     response = requests.delete(f"{self.url}/delete", json=dados)
-=======
-                data = {"table": self.table}
-                if self.valid and id:
-                    response = requests.delete(f"{self.url}/delete/{id}", json=data)
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
                     if response.status_code == 200:
                         self.menu_option(option)
                         response = response.json()
@@ -597,7 +383,6 @@ class App:
                         input("APERTE ENTER PARA CONTINUAR")
                         if self.voltar_menu(option):
                             break
-<<<<<<< HEAD
                         else:
                             self.menu_option(option)
                             print(f"Reiniciando método: {option}...")
@@ -611,19 +396,6 @@ class App:
                         print(f"Reiniciando método: {option}")
                         sleep(1)
                         continue
-=======
-                        self.menu_option(option)
-                        print(f"Reiniciando método: {option}...")
-                        sleep(1)
-                        continue
-                else:
-                    if self.voltar_menu(option):
-                        break
-                    self.menu_option(option)
-                    print(f"Reiniciando método: {option}")
-                    sleep(1)
-                    continue
->>>>>>> 270794fddefd0aed01c5e033accc8b1e088babc7
         except requests.RequestException as e:
             print(f"Erro na requisição: {e}")
             input("APERTE ENTER PARA CONTINUAR")
