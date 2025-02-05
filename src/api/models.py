@@ -28,7 +28,7 @@ class Crud:
             connection = self.get_connection()
             table = data.pop("table")
             columns = ", ".join(data.keys())
-            placeholders = ", ".join([":{}".format(i + 1) for i in range(len(data))])
+            placeholders = ", ".join([f"{i + 1}" for i in range(len(data))])
             values = tuple(data.values())
             command = f"INSERT INTO {table.upper()} ({columns}) VALUES ({placeholders})"
             cursor = connection.cursor()
