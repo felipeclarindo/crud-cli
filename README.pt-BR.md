@@ -76,7 +76,3 @@ Felipe Clarindo
 ## Licença
 
 Este projeto está licenciado sob a [GNU Affero License](https://www.gnu.org/licenses/agpl-3.0.html).
-
-```
-
-```

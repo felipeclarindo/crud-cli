@@ -27,10 +27,10 @@ Crud for manipulations in oracle database with methods of inserting, updating, c
 git clone https://github.com/felipeclarindo/my-energy-api.git
 ```
 
-2. Entre no diretório:
+2. Enter directory:
 
 ```bash
-cd palindrometro
+cd crud
 ```
 
 3. Create `Virtual Environment`:
